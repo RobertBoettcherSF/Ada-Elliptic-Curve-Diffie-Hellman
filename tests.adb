@@ -95,7 +95,7 @@ begin
    -- TEST 8 - Key Pair Generation API
    Put_Line ("TEST 8 — Key Pair Generation API");
    declare
-      Pub_Key : Curve_Point := Generate_Key_Pair (D, B(2));
+      Pub_Key : constant Curve_Point := Generate_Key_Pair (D, B(2));
    begin
       Check ("8.1 Generated key is on curve", Is_On_Curve (Pub_Key, D));
       Check ("8.2 Generated key is not infinity", not Pub_Key.Is_Infinity);
@@ -105,10 +105,10 @@ begin
    -- TEST 9 - Variant 1: Static ECDH Key Agreement
    Put_Line ("TEST 9 — Variant 1: Static ECDH");
    declare
-      Priv_A : Big_Integer := B(4);
-      Pub_A  : Curve_Point := Generate_Key_Pair (D, Priv_A);
-      Priv_B : Big_Integer := B(5);
-      Pub_B  : Curve_Point := Generate_Key_Pair (D, Priv_B);
+      Priv_A : constant Big_Integer := B(4);
+      Pub_A  : constant Curve_Point := Generate_Key_Pair (D, Priv_A);
+      Priv_B : constant Big_Integer := B(5);
+      Pub_B  : constant Curve_Point := Generate_Key_Pair (D, Priv_B);
    begin
       Static_ECDH (D, Priv_A, Pub_B, Secret_A);
       Static_ECDH (D, Priv_B, Pub_A, Secret_B);
@@ -120,10 +120,10 @@ begin
    -- TEST 10 - Variant 2: Ephemeral ECDHE Key Agreement
    Put_Line ("TEST 10 — Variant 2: Ephemeral ECDHE");
    declare
-      Eph_Priv_A : Big_Integer := B(6);
-      Eph_Pub_A  : Curve_Point := Generate_Key_Pair (D, Eph_Priv_A);
-      Eph_Priv_B : Big_Integer := B(7);
-      Eph_Pub_B  : Curve_Point := Generate_Key_Pair (D, Eph_Priv_B);
+      Eph_Priv_A : constant Big_Integer := B(6);
+      Eph_Pub_A  : constant Curve_Point := Generate_Key_Pair (D, Eph_Priv_A);
+      Eph_Priv_B : constant Big_Integer := B(7);
+      Eph_Pub_B  : constant Curve_Point := Generate_Key_Pair (D, Eph_Priv_B);
    begin
       Ephemeral_ECDHE (D, Eph_Priv_A, Eph_Pub_B, Secret_A);
       Ephemeral_ECDHE (D, Eph_Priv_B, Eph_Pub_A, Secret_B);
@@ -135,10 +135,10 @@ begin
    -- TEST 11 - Variant 3: Anonymous ECDH Key Agreement
    Put_Line ("TEST 11 — Variant 3: Anonymous ECDH");
    declare
-      Eph_Client_Priv : Big_Integer := B(2);
-      Eph_Client_Pub  : Curve_Point := Generate_Key_Pair (D, Eph_Client_Priv);
-      Static_Serv_Priv: Big_Integer := B(3);
-      Static_Serv_Pub : Curve_Point := Generate_Key_Pair (D, Static_Serv_Priv);
+      Eph_Client_Priv : constant Big_Integer := B(2);
+      Eph_Client_Pub  : constant Curve_Point := Generate_Key_Pair (D, Eph_Client_Priv);
+      Static_Serv_Priv: constant Big_Integer := B(3);
+      Static_Serv_Pub : constant Curve_Point := Generate_Key_Pair (D, Static_Serv_Priv);
    begin
       Anonymous_ECDH (D, Eph_Client_Priv, Static_Serv_Pub, Secret_A);
       Anonymous_ECDH (D, Static_Serv_Priv, Eph_Client_Pub, Secret_B);
@@ -174,7 +174,7 @@ begin
    Put_Line ("TEST 13 — Error Handling: Invalid Public Point");
    Exc_Hit := False;
    declare
-      Bad_Pub : Curve_Point := (X => B(3), Y => B(11), Is_Infinity => False);
+      Bad_Pub : constant Curve_Point := (X => B(3), Y => B(11), Is_Infinity => False);
    begin
       Static_ECDH (D, B(2), Bad_Pub, Secret_A);
       Check ("13.1 Execution should not reach here", False);
